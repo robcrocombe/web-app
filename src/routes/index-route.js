@@ -18,6 +18,8 @@ router.get('/', (req, res, next) => {
         const hasMore = posts.length === blogController.PAGE_SIZE;
         const hasLess = pageNumber > 1;
 
+        blogController.removeDupes(posts);
+
         res.render('index', {
           title: 'Home',
           hasMore,

@@ -55,6 +55,33 @@ main .avatar {
   float: right;
 }
 
+.show-label {
+  display: block;
+  background-color: #ececec;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+
+  p {
+    font-family: $sans-serif-font;
+    text-align: center;
+    padding: 15px 0;
+  }
+}
+
+.show-switch,
+.more-posts {
+  display: none;
+}
+
+.show-switch:checked ~ .more-posts {
+  display: block;
+}
+
 @media screen and (max-width: 1130px) {
   .article-author {
     display: inline-block;

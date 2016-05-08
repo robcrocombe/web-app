@@ -1,6 +1,6 @@
 import * as api from '../helpers/api';
 
-export const PAGE_SIZE = 10;
+export const PAGE_SIZE = 20;
 
 export function getAllPosts(pageNumber) {
   return api.get('posts', {
@@ -36,4 +36,33 @@ export function getPostAuthors(posts) {
     }
     return postsWithAuthors;
   });
+}
+
+export function removeDupes(_posts) {
+  if (_posts.length < 2) {
+    return;
+  }
+
+  const posts = _posts;
+  let compare = posts[0];
+  let dupe = false;
+
+  for (let i = 1; i < posts.length; ++i) {
+    if (posts[i].author_id === compare.author_id) {
+      dupe = true;
+    } else {
+      compare = posts[i];
+      dupe = false;
+    }
+
+    if (dupe) {
+      if (!compare.more) {
+        compare.more = [];
+      }
+
+      compare.more.push(posts[i]);
+      posts.splice(i, 1);
+      --i;
+    }
+  }
 }
